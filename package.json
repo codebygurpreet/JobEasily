@@ -1,0 +1,20 @@
+{
+  "name": "job-portal-website",
+  "version": "1.0.0",
+  "description": "user-friendly platform for job seekers to find and apply for suitable roles and recruiters to post and manage job listings.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Gurpreet Singh",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.1",
+    "multer": "^2.0.1"
+  }
+}
