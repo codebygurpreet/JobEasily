@@ -89,7 +89,7 @@ export default class JobController {
   showAllApplicants(req, res) {
     const jobId = req.params.id;
     const allApplicants = JobModel.getAllApplicants(jobId);
-
+ 
     if (!allApplicants) {
       return res.status(404).render('404');
     }
