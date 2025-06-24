@@ -133,7 +133,7 @@ export default class JobModel {
     jobData[jobIndex].applicants.push(applicant);
     console.log('Updated Applicants:', jobData[jobIndex].applicants);
 
-    return jobData[jobIndex].applicants;
+    return applicant;
   }
 
 }

@@ -1,4 +1,5 @@
 import JobModel from "../models/job.model.js";
+import {sendMailConfirmation} from "../middlewares/sendMail.middleware.js";
 
 export default class JobController {
 
@@ -97,7 +98,7 @@ export default class JobController {
     res.render('all-applicants', { allApplicants });
   }
 
-  addNewApplicant(req, res) {
+  async addNewApplicant(req, res) {
     const jobId = req.params.id;
     const { name, contact, email } = req.body;
     const resumePath = req.file?.filename;
@@ -107,6 +108,8 @@ export default class JobController {
     }
 
     const result = JobModel.addApplicant(jobId, { name, contact, email, resumePath });
+
+    await sendMailConfirmation(result);
 
     if (!result) {
       return res.status(404).render('404');
