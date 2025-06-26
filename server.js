@@ -3,6 +3,8 @@ import express from 'express';
 import path from 'path';
 import ejsLayouts from 'express-ejs-layouts';
 import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import { setLastVisit } from './src/middlewares/lastVisit.middleware.js';
 
 // -------------------- Importing Routes -------------------- //
 import jobRouter from './src/routes/job.route.js';
@@ -20,6 +22,10 @@ app.use(session({
         secure: false // Set to true in production (with HTTPS)
     }
 }));
+
+// -------------------- cookieParser Middleware -------------------- //
+app.use(cookieParser());
+app.use(setLastVisit);
 
 // -------------------- Global Middleware -------------------- //
 // Makes user data available in EJS views as `user`

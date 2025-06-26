@@ -1,3 +1,22 @@
+<!-- lastVisi Ejs -->
+<% if (locals.lastVisit) { %>
+  <div class="last-visit-banner" id="lastVisitBox">
+    <div class="visit-info">
+      <div class="visit-icon">⚠</div>
+      <div class="visit-text">
+        <div class="visit-title"><strong>Welcome back!</strong></div>
+        <div class="visit-subtext">Your last visit was <%= new Date(locals.lastVisit).toLocaleString() %></div>
+      </div>
+    </div>
+    <div class="visit-actions">
+      <a href="/profile" class="learn-more-btn">Learn More</a>
+      <button class="close-btn" onclick="document.getElementById('lastVisitBox').style.display = 'none'">✕</button>
+    </div>
+  </div>
+<% } %>
+
+
+
 <div class="container-lpage py-5">
   <div
     class="container-fluid main d-flex flex-column flex-md-row align-items-center justify-content-between"
@@ -1566,4 +1585,104 @@
   }
 
   requestAnimationFrame(autoScroll);
+
+
+  // Disapper lastvisit in 4 sec
+  setTimeout(() => {
+      const box = document.getElementById("lastVisitBox");
+      if (box) box.style.display = "none";
+    }, 4000); // 4 seconds
+
 </script>
+
+<style>
+  .last-visit-banner {
+    display: flex;
+    position:fixed;
+    right: 2%;
+    bottom: 2%;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff7e6; /* Soft light cream */
+    border-radius: 16px;
+    padding: 1rem 1.5rem;
+    max-width: 720px;
+    margin: 2rem auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', sans-serif;
+    color: #4e342e;
+    animation: slideFadeIn 0.5s ease-in-out;
+    z-index: 10;
+    border-left: 6px solid #ff9800;
+  }
+
+  .visit-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .visit-icon {
+    font-size: 1.8rem;
+    color: #ff9800;
+  }
+
+  .visit-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #3e2723;
+  }
+
+  .visit-subtext {
+    font-size: 0.875rem;
+    color: #6d4c41;
+  }
+
+  .visit-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .learn-more-btn {
+    background: #ff9800;
+    color: #fff;
+    border: none;
+    padding: 0.45rem 1rem;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.2);
+  }
+
+  .learn-more-btn:hover {
+    background: #fb8c00;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    color: #8d6e63;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .close-btn:hover {
+    color: #3e2723;
+  }
+
+  @keyframes slideFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
