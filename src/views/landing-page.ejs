@@ -16,6 +16,72 @@
 <% } %>
 
 
+<!-- Error message alert box -->
+<% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+  <div class="glass-alert" role="alert">
+    <span class="icon">⚠️</span>
+    <span class="msg"><%= errorMessage %></span>
+    <button class="close-btn" onclick="this.parentElement.remove()">&times;</button>
+  </div>
+<% } %>
+
+<style>
+/* --- Glass alert --- */
+.glass-alert {
+  position: fixed;
+  top: 17%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 260px;
+  max-width: 420px;
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  /* Glassmorphism core */
+  background: rgba(255, 61, 72, 0.25);
+  border: 1px solid rgba(255, 61, 72, 0.4);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+
+  color: #fff;
+  font-size: 15px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  z-index: 9999;
+
+  animation: pop 0.35s ease-out;
+}
+
+/* Emoji / icon */
+.glass-alert .icon { font-size: 18px; }
+
+/* Message text flex-grow so it truncates nicely */
+.glass-alert .msg { flex: 1; }
+
+/* Close (×) button */
+.glass-alert .close-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  color: inherit;
+  cursor: pointer;
+  padding: 0 2px;
+  transition: transform 0.2s;
+}
+.glass-alert .close-btn:hover { transform: scale(1.2); }
+
+/* Entrance keyframe */
+@keyframes pop {
+  0%   { opacity: 0; transform: translate(-50%, -60%) scale(0.9); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+</style>
+
+
 
 <div class="container-lpage py-5">
   <div
@@ -29,6 +95,7 @@
       </h2>
       <div class="actions">
         <a href="/jobs" class="btn btn-lg lbtn btn-primary">Job Seeker</a>
+        <% if (!locals.user) { %>
         <button
           data-bs-toggle="modal"
           data-bs-target="#staticBackdrop"
@@ -36,6 +103,7 @@
         >
           Recruiter
         </button>
+        <% } %>
       </div>
     </div>
 
@@ -95,7 +163,6 @@
           <div class="mb-3">
             <label class="form-label fw-medium">Full Name</label>
             <input
-              required
               name="name"
               type="text"
               class="form-control"
@@ -107,7 +174,6 @@
           <div class="mb-3">
             <label class="form-label fw-medium">Email Address</label>
             <input
-              required
               name="email"
               type="email"
               class="form-control"
@@ -119,7 +185,6 @@
           <div class="mb-3">
             <label class="form-label fw-medium">Password</label>
             <input
-              required
               name="password"
               type="password"
               class="form-control"

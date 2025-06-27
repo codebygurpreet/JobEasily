@@ -1,5 +1,6 @@
 import express from 'express';
 import UserController from '../controllers/user.controller.js';
+import validateRecruiter from '../middlewares/validateRecruiter.middleware.js'
 
 const router = express.Router();
 const userController = new UserController();
@@ -7,7 +8,7 @@ const userController = new UserController();
 // -------------------- Authentication Routes -------------------- //
 
 // Register a new recruiter (POST)
-router.post('/register', userController.handleRegister);
+router.post('/register', validateRecruiter,  userController.handleRegister);
 
 // Render the login page (GET)
 router.get('/login', userController.renderLoginPage);
