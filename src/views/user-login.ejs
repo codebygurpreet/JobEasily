@@ -1,3 +1,29 @@
+<!-- Error Alert Box -->
+<% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+  <div class="toast-container position-fixed bottom-0 my-6 end-0 p-3" style="z-index: 20;">
+    <div id="errorToast" class="toast align-items-center text-white bg-danger border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          <strong>Error:</strong> <%= errorMessage %>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Auto-dismiss the toast after 4 seconds
+    setTimeout(() => {
+      const toastEl = document.getElementById('errorToast');
+      const toast = bootstrap.Toast.getOrCreateInstance(toastEl); // Requires Bootstrap JS
+      toast.hide();
+    }, 4000);
+  </script>
+<% } %>
+
+
+
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-lg-5 col-md-7 col-sm-9">
