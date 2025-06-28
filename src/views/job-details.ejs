@@ -61,7 +61,8 @@
             </svg>
             Edit
           </a>
-          <a class="action-btn bookmark-btn" href="/jobs/delete/<%=data.id%>">
+          <a class="action-btn bookmark-btn" href="/jobs/delete/<%=data.id%>"
+            onclick="return confirm('Do you really want to delete this job?');" >
             <i class="fa-regular fa-trash-can fa-lg" style="color: #6b7280;"></i>
             Delete
           </a>
