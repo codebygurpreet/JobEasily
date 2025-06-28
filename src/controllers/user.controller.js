@@ -22,7 +22,7 @@ export default class UserController {
     const authenticatedUser = UserModel.validateCredentials(req.body);
 
     if (!authenticatedUser) {
-      return res.render('404', { errorMessage: "Invalid email or password" });
+      return res.render('user-login', { errorMessage: "Invalid email or password" });
     }
 
     req.session.user = authenticatedUser; // Set session
