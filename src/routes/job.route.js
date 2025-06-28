@@ -2,6 +2,7 @@ import express from 'express';
 import upload from '../middlewares/fileUpload.middleware.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 import JobController from '../controllers/job.controller.js';
+import validateRequest from '../middlewares/validateCompanyLogo.middleware.js'
 
 const router = express.Router();
 const jobController = new JobController();
@@ -25,7 +26,7 @@ router.get('/jobs', jobController.displayAllJobs);
 router.get('/postjob', authMiddleware, jobController.showPostJobForm);
 
 // Handle new job creation (Protected + File Upload)
-router.post('/job', authMiddleware, upload.single("logo"), jobController.createJob);
+router.post('/job', authMiddleware, upload.single("logo"), validateRequest, jobController.createJob);
 
 // Show specific job details
 router.get('/jobs/:id', jobController.displayJobDetails);
