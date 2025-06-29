@@ -1,5 +1,5 @@
 import JobModel from "../models/job.model.js";
-import {sendMailConfirmation} from "../middlewares/sendMail.middleware.js";
+import { sendMailConfirmation } from "../middlewares/sendMail.middleware.js";
 
 export default class JobController {
 
@@ -8,8 +8,10 @@ export default class JobController {
 
   // Fetch and render all job listings
   displayAllJobs(req, res) {
-    const jobs = JobModel.getAllJobs();
-    res.render('list-all-jobs', { jobs });
+    const { keyword, location, sort } = req.query;
+    const jobs = JobModel.getAllJobs(keyword, location, sort);
+    res.render('list-all-jobs', 
+      {jobs, keyword, location, sort});
   }
 
   // Render form for posting a new job
@@ -90,7 +92,7 @@ export default class JobController {
   showAllApplicants(req, res) {
     const jobId = req.params.id;
     const allApplicants = JobModel.getAllApplicants(jobId);
- 
+
     if (!allApplicants) {
       return res.status(404).render('404');
     }

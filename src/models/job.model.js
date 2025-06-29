@@ -23,8 +23,39 @@ export default class JobModel {
   }
 
   // Return all jobs
-  static getAllJobs() {
-    return jobData;
+  static getAllJobs(keyword, location, sort) {
+    let filteredJobs = jobData;           // 1. start with full data
+
+    // 2. Keyword filter
+    if (keyword) {
+      const kw = keyword.toLowerCase();
+      filteredJobs = filteredJobs.filter(j =>
+        j.job_designation?.toLowerCase().includes(kw)
+      );
+    }
+
+    // 3. Location filter
+    if (location) {
+      const loc = location.toLowerCase();
+      filteredJobs = filteredJobs.filter(j =>
+        j.job_location?.toLowerCase().includes(loc)
+      );
+    }
+
+    // 4. Sorting
+    if (sort === 'salary') {
+      filteredJobs.sort((a, b) => {
+        const num = s => parseInt((s || '').replace(/[^\d]/g, '')) || 0;
+        return num(b.salary) - num(a.salary);          // high → low
+      });
+    } else if (sort === 'recent') {
+      filteredJobs.sort((a, b) =>
+        new Date(b.job_posted) - new Date(a.job_posted) // newest first
+      );
+    }
+
+    // 5. Return the result!
+    return filteredJobs;
   }
 
   // Add a new job
